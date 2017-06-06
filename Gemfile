@@ -42,9 +42,11 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 
+  #тестирование
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
+  gem 'rails-controller-testing'
 end
 
 group :development do

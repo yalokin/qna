@@ -15,6 +15,7 @@ module Qna
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    #конфигурация генератора тестов контроллеров
     config.generators do |g|
       g.test_framework :rspec,
                        fixtures: true,
@@ -23,6 +24,7 @@ module Qna
                        routing_specs: false,
                        request_specs: false,
                        contriller_spec: true
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
   end
 end
