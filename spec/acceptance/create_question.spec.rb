@@ -9,7 +9,7 @@ feature 'Create question', %q{
   scenario 'User create the question' do
     visit new_question_path
     fill_in 'Title', with: 'Title of question'
-    fill_in 'Text', with: 'Text of question'
+    fill_in 'Body', with: 'Text of question'
     click_on 'Create'
 
     expect(page).to have_content 'Title of question'
