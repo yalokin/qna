@@ -1,0 +1,1 @@
+scenario 'User can sign out'

@@ -1,0 +1,1 @@
+scenario 'Authenticated user can delete only his question'
