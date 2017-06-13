@@ -4,6 +4,8 @@ RSpec.describe AnswersController, type: :controller do
   let(:question) { create :question }
 
   describe 'GET #new' do
+    sign_in_user
+
     before { get :new, params: { question_id: question } }
 
     it 'assigns a new Answer to @answer' do
