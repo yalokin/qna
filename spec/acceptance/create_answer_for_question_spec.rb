@@ -16,4 +16,19 @@ feature 'Create answer for question', %q{
 
     expect(page).to have_content 'Answer text'
   end
+
+  scenario 'Unauthenticated user to try create answer' do
+    visit question_path(question)
+    click_on 'Answer'
+
+    expect(page).to have_content 'You need to sign in'
+  end
+
+  scenario 'Auth user creates unvalid answer' do
+    sign_in(user)
+    visit question_path(question)
+    click_on 'Answer'
+
+    expect(page).to have_content "Body can't be blank"
+  end
 end
