@@ -10,6 +10,9 @@ h3 Answers
 
 - @question.answers.each do |answer|
   p = answer.body
+    - if current_user && current_user.author_of?(answer)
+      = link_to 'Delete answer', answer, method: :delete
+
 
 = form_for [@question, @answer] do |f|
   = render 'common/errors', resource: @answer
