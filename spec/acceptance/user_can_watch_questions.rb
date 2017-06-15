@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 feature 'User can watch the questions', %q{
-In order to be able to view questions
-as a user
+  In order to be able to view questions
+  as a user
 } do
 
   given!(:questions) { create_list(:question, 2) }
