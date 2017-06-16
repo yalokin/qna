@@ -9,13 +9,7 @@ feature 'Sign out', %q{
   given(:user) { create(:user) }
 
   scenario 'Sign out' do
-
-    User.create!(email: 'user@test.ru', password: '12345678')
-
-    visit new_user_session_path
-    fill_in 'Email', with: 'user@test.ru'
-    fill_in 'Password', with: '12345678'
-    click_on 'Log in'
+    sign_in(user)
 
     visit root_path
     click_on 'Sign out'
