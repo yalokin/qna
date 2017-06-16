@@ -13,18 +13,18 @@ feature 'Delete question by author', %q{
   scenario 'Delete question as nonauthor' do
     sign_in(user_without_question)
     visit question_path(question)
-    expect(page).to_not have_content 'Delete'
+    expect(page).to have_no_content 'Delete'
   end
 
   scenario 'Delete question as author' do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete question'
-    expect(page).to_not have_content (question.title)
+    expect(page).to have_no_content (question.title)
   end
 
   scenario 'Delete question as an nonauth user' do
     visit question_path(question)
-    expect(page).to_not have_content 'Delete question'
+    expect(page).to have_no_content 'Delete question'
   end
 end

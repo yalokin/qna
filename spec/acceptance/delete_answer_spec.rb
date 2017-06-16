@@ -15,7 +15,7 @@ feature 'Delete answer', %q{
     sign_in(user_without_question)
     visit question_path(question)
 
-    expect(page).to_not have_content 'Delete answer'
+    expect(page).to have_no_content 'Delete answer'
   end
 
   scenario 'Delete answer as author' do
@@ -23,11 +23,11 @@ feature 'Delete answer', %q{
     visit question_path(question)
     click_on 'Delete answer'
 
-    expect(page).to_not have_content(answer.body)
+    expect(page).to have_no_content(answer.body)
   end
 
   scenario 'Delete answer as nonauth user' do
     visit question_path(question)
-    expect(page).to_not have_content 'Delete answer'
+    expect(page).to have_no_content 'Delete answer'
   end
 end
