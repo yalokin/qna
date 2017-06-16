@@ -5,7 +5,7 @@ feature 'User can watch the questions', %q{
   as a user
 } do
 
-  given!(:questions) { create_list(:question, 2) }
+  given(:questions) { create_list(:question, 2) }
 
   scenario 'User view questions' do
     visit questions_path

@@ -4,7 +4,7 @@ feature 'User can watch question with answer', %q{
   To look at the question with the answers
 } do
 
-  given!(:question) { create :question }
+  given(:question) { create :question }
   given!(:answers) { create_list(:answer, 2, question: question) }
 
   scenario 'View question page with answers' do

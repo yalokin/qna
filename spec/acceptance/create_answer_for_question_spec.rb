@@ -3,8 +3,8 @@ require 'rails_helper'
 feature 'Create answer for question', %q{
   To be abble to create answers for question
 } do
-  given!(:user) { create :user }
-  given!(:question) { create :question }
+  given(:user) { create :user }
+  given(:question) { create :question }
 
   scenario 'Auth user can to create answer' do
     sign_in(user)

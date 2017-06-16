@@ -6,10 +6,10 @@ feature 'Delete answer', %q{
   I want to delete my answers
 } do
 
-  given!(:user) { create :user }
-  given!(:question) { create :question }
-  given!(:answer) { create(:answer, user: user, question: question) }
-  given!(:user_without_question) { create :user }
+  given(:user) { create :user }
+  given(:question) { create :question }
+  given(:answer) { create(:answer, user: user, question: question) }
+  given(:user_without_question) { create :user }
 
   scenario 'Delete anser as nonauthor' do
     sign_in(user_without_question)

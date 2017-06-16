@@ -6,9 +6,9 @@ feature 'Delete question by author', %q{
   I want to delete my questions
 } do
 
-  given!(:user) { create :user }
-  given!(:question) { create(:question, user: user) }
-  given!(:user_without_question) { create :user }
+  given(:user) { create :user }
+  given(:question) { create(:question, user: user) }
+  given(:user_without_question) { create :user }
 
   scenario 'Delete question as nonauthor' do
     sign_in(user_without_question)
