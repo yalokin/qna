@@ -8,8 +8,8 @@ p = @question.body
 
 h3 Answers
 
-- unless @question.answers.count.to_i.zero?
-  - @question.answers.each do |answer|
+- @question.answers.each do |answer|
+  - if answer.persisted?
     p = answer.body
     - if current_user&.author_of?(answer)
       = link_to 'Delete answer', answer, method: :delete

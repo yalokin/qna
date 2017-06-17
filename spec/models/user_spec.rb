@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   let(:question) { create(:question, user: user) }
   let(:user_without_question) { create :user }
 
-  describe 'author_of? method' do
+  describe 'author_of?' do
     it 'return true if uesr athothor of resource' do
       expect(user.author_of?(question)).to be true
     end
