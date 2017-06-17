@@ -11,7 +11,7 @@ feature 'Delete answer', %q{
   given!(:answer) { create(:answer, user: user, question: question) }
   given(:user_without_question) { create :user }
 
-  scenario 'Delete anser as nonauthor' do
+  scenario 'Delete answer as nonauthor' do
     sign_in(user_without_question)
     visit question_path(question)
 
