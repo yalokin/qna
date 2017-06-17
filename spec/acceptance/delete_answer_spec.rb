@@ -8,7 +8,7 @@ feature 'Delete answer', %q{
 
   given(:user) { create :user }
   given(:question) { create :question }
-  given(:answer) { create(:answer, user: user, question: question) }
+  given!(:answer) { create(:answer, user: user, question: question) }
   given(:user_without_question) { create :user }
 
   scenario 'Delete anser as nonauthor' do
