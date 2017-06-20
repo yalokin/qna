@@ -6,7 +6,7 @@ feature 'Create answer for question', %q{
   given(:user) { create :user }
   given(:question) { create :question }
 
-  scenario 'Auth user can to create answer' do
+  scenario 'Auth user can to create answer', js: true do
     sign_in(user)
 
     visit question_path(question)
@@ -24,7 +24,7 @@ feature 'Create answer for question', %q{
     expect(page).to have_content 'You need to sign in'
   end
 
-  scenario 'Auth user creates unvalid answer' do
+  scenario 'Auth user creates unvalid answer', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Answer'
