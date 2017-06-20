@@ -43,7 +43,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'launchy'
   gem 'selenium-webdriver'
-
+  gem 'jquery-rails'
 
   #тестирование
   gem 'rspec-rails'
