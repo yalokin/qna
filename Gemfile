@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'slim-rails'
 gem 'devise'
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,13 +44,11 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'launchy'
   gem 'selenium-webdriver'
-  gem 'jquery-rails'
-
-  #тестирование
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'rails-controller-testing'
+  gem 'database_cleaner'
 end
 
 group :development do
