@@ -24,7 +24,7 @@ feature 'Create answer for question', %q{
     expect(page).to have_content 'You need to sign in'
   end
 
-  scenario 'Auth user creates unvalid answer', js: true do
+  scenario 'Auth user creates invalid answer', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Answer'
