@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
-
+  before_action :authenticate_user!, only: [:create, :destroy, :update]
+  before_action :set_answer, only: [:destroy, :update]
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
@@ -9,13 +9,13 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Answer.find(params[:id])
-    @answer.update(answer_params)
-    @question = @answer.question
+    if current_user.author_of?(@answer)
+      @question = @answer.question
+      @answer.update(answer_params)
+    end
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
     if current_user.author_of?(@answer)
       @answer.destroy
     end
@@ -26,5 +26,9 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body)
+  end
+
+  def set_answer
+    @answer = Answer.find(params[:id])
   end
 end

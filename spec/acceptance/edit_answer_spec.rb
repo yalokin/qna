@@ -37,7 +37,7 @@ feature 'Answer editing', %q{
 
         expect(page).to have_no_content answer.body
         expect(page).to have_content 'edited answer'
-        expect(page).to  have_no_selector 'textarea'
+        expect(page).to have_no_selector 'textarea'
       end
     end
   end

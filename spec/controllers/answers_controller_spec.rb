@@ -37,26 +37,28 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #UPDATE' do
+    sign_in_user
     let!(:answer) { create(:answer, question: question) }
+    let!(:answer_user) { create(:answer, question: question, user: @user) }
 
     it 'assigns the requested answer to @answer' do
-      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
-      expect(assigns(:answer)).to eq answer
+      patch :update, params: { id: answer_user, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:answer)).to eq answer_user
     end
 
     it 'assigns question to @question' do
-      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      patch :update, params: { id: answer_user, question_id: question, answer: attributes_for(:answer), format: :js }
       expect(assigns(:question)).to eq question
     end
 
     it 'changes answer attributes' do
-      patch :update, params: { id: answer, answer: { body: 'new body' },question_id: question, format: :js }
-      answer.reload
-      expect(answer.body).to eq 'new body'
+      patch :update, params: { id: answer_user, answer: { body: 'new body' },question_id: question, format: :js }
+      answer_user.reload
+      expect(answer_user.body).to eq 'new body'
     end
 
     it 'render update template' do
-      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      patch :update, params: { id: answer_user, question_id: question, answer: attributes_for(:answer), format: :js }
       expect(response).to render_template :update
     end
   end
