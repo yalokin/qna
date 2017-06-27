@@ -8,6 +8,7 @@ feature 'Answer editing', %q{
   given!(:user) { create :user }
   given!(:question) { create :question }
   given!(:answer) { create(:answer, user: user, question: question) }
+  given!(:user_without_answer) { create :user }
 
   scenario 'Unauthenticated user try to edit answer' do
     visit question_path(question)
@@ -39,7 +40,15 @@ feature 'Answer editing', %q{
         expect(page).to  have_no_selector 'textarea'
       end
     end
-
-    scenario 'try to edit other user answers'
   end
+
+  scenario 'try to edit other user answers' do
+    sign_in(user_without_answer)
+    visit question_path(question)
+
+    within '.answers' do
+      expect(page).to have_no_link 'Edit'
+    end
+  end
+
 end
