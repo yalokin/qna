@@ -6,7 +6,7 @@ feature 'Delete answer', %q{
   I want to delete my answers
 } do
 
-  given(:user) { create :user }
+  given!(:user) { create :user }
   given(:question) { create :question }
   given!(:answer) { create(:answer, user: user, question: question) }
   given(:user_without_question) { create :user }
@@ -18,7 +18,7 @@ feature 'Delete answer', %q{
     expect(page).to have_no_content 'Delete answer'
   end
 
-  scenario 'Delete answer as author' do
+  scenario 'Delete answer as author', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'
