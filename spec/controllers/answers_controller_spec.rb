@@ -85,4 +85,30 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #best' do
+    sign_in_user
+    let(:question_user) { create :question, answers: create_list(:answer, 2), user: @user }
+    let(:question) { create :question, answers: create_list(:answer, 2) }
+
+    context 'question author set best answer'do
+      it 'set best to true' do
+        patch :best, params: { id: question_user.answers.first, format: :js }
+
+        expect(assigns(:answer).best).to eq true
+      end
+
+      it 'renders best template' do
+        patch :best, params: { id: question.answers.first, format: :js }
+        expect(response).to render_template :best
+      end
+    end
+
+    context 'no author of question try to set best answer' do
+      it 'best is not set' do
+        patch :best, params: { id: question.answers.first, format: :js }
+        expect(assigns(:answer).best).to eq false
+      end
+    end
+  end
 end
