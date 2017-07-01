@@ -5,6 +5,8 @@ class Answer < ApplicationRecord
   validates :body, presence: true
   validates_uniqueness_of :best, conditions: -> { where(best: true) }, scope: :question_id
 
+  scope :ordered, -> { order(best: :desc) }
+
   def best!
     prev_best = question.answers.where(best: true)
     prev_best.update(best: false)

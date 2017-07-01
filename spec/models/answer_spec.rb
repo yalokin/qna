@@ -35,4 +35,11 @@ RSpec.describe Answer, type: :model do
       expect(another_answer.best).to eq false
     end
   end
+
+  describe 'ordered scope' do
+    it 'best answer should be first' do
+      another_answer.best!
+      expect(question.answers.ordered.first).to eq another_answer
+    end
+  end
 end
