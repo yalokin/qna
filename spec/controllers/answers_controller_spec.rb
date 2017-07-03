@@ -36,7 +36,7 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
-  describe 'PATCH #UPDATE' do
+  describe 'PATCH #update' do
     sign_in_user
     let!(:answer) { create(:answer, question: question) }
     let!(:answer_user) { create(:answer, question: question, user: @user) }
@@ -95,7 +95,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'set best to true' do
         patch :best, params: { id: question_user.answers.first, format: :js }
 
-        expect(assigns(:answer).best).to eq true
+        expect(assigns(:answer)).to be_best
       end
 
       it 'renders best template' do

@@ -3,13 +3,14 @@ class Answer < ApplicationRecord
   belongs_to :user
 
   validates :body, presence: true
-  validates_uniqueness_of :best, conditions: -> { where(best: true) }, scope: :question_id
 
   scope :ordered, -> { order(best: :desc) }
 
   def best!
     prev_best = question.answers.where(best: true)
-    prev_best.update(best: false)
-    update(best: true)
+    transaction do
+      prev_best.first.update!(best: false) unless prev_best.empty?
+      update!(best: true)
+    end
   end
 end

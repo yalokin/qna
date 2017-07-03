@@ -12,12 +12,17 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @question = @answer.question
       @answer.update(answer_params)
+    else
+      flash[:notice] = 'You can not edit this answer'
     end
   end
 
   def destroy
     if current_user.author_of?(@answer)
       @answer.destroy
+      flash[:notice] = 'Your answer successfully deleted'
+    else
+      flash[:notice] = 'You can not delete this answer'
     end
   end
 

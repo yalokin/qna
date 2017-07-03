@@ -7,5 +7,10 @@ FactoryGirl.define do
     factory :invalid_answer do
       body nil
     end
+
+    factory :best_answer do
+      best true
+    end
+
   end
 end

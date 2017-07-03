@@ -1,8 +1,3 @@
 $('.best-label').remove();
-
-<% if @answer.errors.any? %>
-  $('#answer_body').before('<%= j render 'common/errors', resource: @answer %>');
-<% else %>
-  $('#answer-<%= @answer.id %>').prependTo('.answers');
-  $('#answer-<%= @answer.id %>').prepend('<p class="best-label"> Best answer: </p>');
-<% end %>
+$('#answer-<%= @answer.id %>').prependTo('.answers');
+$('#answer-<%= @answer.id %>').prepend('<p class="best-label"> Best answer: </p>');
