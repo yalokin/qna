@@ -9,8 +9,8 @@ class Answer < ApplicationRecord
   def best!
     prev_best = question.answers.where(best: true)
     transaction do
-      prev_best.update(best: false)
-      update(best: true)
+      prev_best.update!(best: false)
+      update!(best: true)
     end
   end
 end

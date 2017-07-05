@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @answer.destroy
     else
-      redirect_to @answer.question, notice: 'You can not delete this answer'
+      flash[:notice] = 'You can not delete this answer'
     end
   end
 
@@ -27,7 +27,7 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer.question)
       @answer.best!
     else
-      redirect_to @answer.question, notice: 'You can not set best answer'
+      flash[:notice] = 'You can not set best answer'
     end
   end
 
