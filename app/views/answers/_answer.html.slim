@@ -1,5 +1,5 @@
-div id="answer-#{answer.id}"
-  - if answer.persisted?
+- if answer.persisted?
+  div id="answer-#{answer.id}"
     - if answer.best?
       .best-label
         p = 'Best answer'

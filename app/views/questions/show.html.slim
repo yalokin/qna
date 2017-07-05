@@ -1,7 +1,7 @@
 h1 Question
 
 .question
-  = render @question
+  = render @question if @question.persisted?
 
 h3 Answers
 

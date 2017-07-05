@@ -91,7 +91,7 @@ RSpec.describe AnswersController, type: :controller do
     let(:question_user) { create :question, answers: create_list(:answer, 2), user: @user }
     let(:question) { create :question, answers: create_list(:answer, 2) }
 
-    context 'question author set best answer'do
+    context 'makes answer best'do
       it 'set best to true' do
         patch :best, params: { id: question_user.answers.first, format: :js }
 
@@ -99,7 +99,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'renders best template' do
-        patch :best, params: { id: question.answers.first, format: :js }
+        patch :best, params: { id: question_user.answers.first, format: :js }
         expect(response).to render_template :best
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe AnswersController, type: :controller do
     context 'no author of question try to set best answer' do
       it 'best is not set' do
         patch :best, params: { id: question.answers.first, format: :js }
-        expect(assigns(:answer).best).to eq false
+        expect(assigns(:answer)).to_not be_best
       end
     end
   end

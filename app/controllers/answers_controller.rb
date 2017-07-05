@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy, :update, :best]
+  before_action :authenticate_user!
   before_action :set_answer, only: [:destroy, :update, :best]
   def create
     @question = Question.find(params[:question_id])
@@ -12,22 +12,23 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @question = @answer.question
       @answer.update(answer_params)
-    else
-      flash[:notice] = 'You can not edit this answer'
     end
   end
 
   def destroy
     if current_user.author_of?(@answer)
       @answer.destroy
-      flash[:notice] = 'Your answer successfully deleted'
     else
-      flash[:notice] = 'You can not delete this answer'
+      redirect_to @answer.question, notice: 'You can not delete this answer'
     end
   end
 
   def best
-    @answer.best! if current_user.author_of?(@answer.question)
+    if current_user.author_of?(@answer.question)
+      @answer.best!
+    else
+      redirect_to @answer.question, notice: 'You can not set best answer'
+    end
   end
 
   private

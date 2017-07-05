@@ -11,7 +11,7 @@ feature 'Select best answer', %q{
   scenario 'Author select best answer', js: true do
     sign_in(author)
     visit question_path(question)
-  
+
     last_answer = question.answers.last
 
     within("#answer-#{last_answer.id}") do

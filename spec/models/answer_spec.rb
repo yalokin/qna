@@ -7,15 +7,16 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of :body }
 
   let(:question) { create :question }
-  let(:answer) { create :best_answer, question: question }
+  let!(:answer) { create :best_answer, question: question }
   let(:another_answer) { create :answer, question: question }
 
   describe '#best!' do
     it 'set best answer' do
       another_answer.best!
-      another_answer.reload
+      answer.reload
 
       expect(another_answer).to be_best
+      expect(answer).to_not be_best
     end
 
   end
