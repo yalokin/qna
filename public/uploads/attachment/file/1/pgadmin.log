@@ -1,0 +1,4 @@
+ERROR  : 10:52:08: Ошибка: Error connecting to the server: fe_sendauth: no password supplied
+
+ERROR  : 16:32:44: Ошибка: ОШИБКА:  расширение "adminpack" уже существует
+ERROR  : 17:20:52: Ошибка: ОШИБКА:  расширение "adminpack" уже существует
