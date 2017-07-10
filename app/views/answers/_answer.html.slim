@@ -4,6 +4,11 @@
       .best-label
         p = 'Best answer'
     p = answer.body
+    p Attachments:
+    ul
+      - answer.attachments.each do |a|
+        li = link_to a.file.identifier, a.file.url
+
     - if current_user&.author_of?(answer.question)
       = link_to 'Mark as best ', best_answer_path(answer), remote: true, method: :patch, class: 'best-answer-link', data: {answer_id: answer.id}
     - if current_user&.author_of?(answer)
