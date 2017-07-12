@@ -33,13 +33,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'slim-rails'
+gem 'carrierwave'
+gem 'cocoon'
 gem 'devise'
 gem 'jquery-rails'
-gem 'carrierwave'
 gem 'remotipart'
-gem 'cocoon'
-
+gem 'slim-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
