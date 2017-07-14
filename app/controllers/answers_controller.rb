@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
-
+  before_action :authenticate_user!
+  before_action :set_answer, only: [:destroy, :update, :best]
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
@@ -8,17 +8,36 @@ class AnswersController < ApplicationController
     @answer.save
   end
 
+  def update
+    if current_user.author_of?(@answer)
+      @question = @answer.question
+      @answer.update(answer_params)
+    end
+  end
+
   def destroy
-    @answer = Answer.find(params[:id])
     if current_user.author_of?(@answer)
       @answer.destroy
+    else
+      flash[:notice] = 'You can not delete this answer'
     end
-    redirect_to @answer.question
+  end
+
+  def best
+    if current_user.author_of?(@answer.question)
+      @answer.best!
+    else
+      flash[:notice] = 'You can not set best answer'
+    end
   end
 
   private
 
   def answer_params
     params.require(:answer).permit(:body)
+  end
+
+  def set_answer
+    @answer = Answer.find(params[:id])
   end
 end

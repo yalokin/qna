@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User can watch question with answer', %q{
   To look at the question with the answers

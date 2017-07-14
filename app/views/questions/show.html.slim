@@ -1,15 +1,12 @@
 h1 Question
 
-- if current_user&.author_of?(@question)
-  = link_to 'Delete question', question_path, method: :delete
-
-p = @question.title
-p = @question.body
+.question
+  = render @question if @question.persisted?
 
 h3 Answers
 
 .answers
-  = render @question.answers
+  = render @question.answers.ordered
 
 = form_for [@question, @answer], remote: true do |f|
   = render 'common/errors', resource: @answer

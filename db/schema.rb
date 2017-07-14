@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613213946) do
+ActiveRecord::Schema.define(version: 20170703145238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20170613213946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.boolean "best", default: false
+    t.index ["best", "question_id"], name: "one_best_answer", unique: true, where: "(best IS TRUE)"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
@@ -52,6 +54,4 @@ ActiveRecord::Schema.define(version: 20170613213946) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "answers", "users"
-  add_foreign_key "questions", "users"
 end
