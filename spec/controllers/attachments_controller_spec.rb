@@ -7,34 +7,31 @@ RSpec.describe AttachmentsController, type: :controller do
   let(:user_answer) { create(:answer, question: user_question, user: @user) }
   let(:answer) { create(:answer) }
   let(:question) { create(:question) }
+  let(:file) { File.open("#{Rails.root}/spec/spec_helper.rb") }
 
   describe 'DELETE #destroy' do
 
-    before do
-      file = File.open("#{Rails.root}/spec/spec_helper.rb")
-      user_question.attachments.create(file: file)
-      user_answer.attachments.create(file: file)
-      answer.attachments.create(file: file)
-      question.attachments.create(file: file)
-    end
-
     context 'Author deletes attachment' do
       it 'deletes attachment from answer' do
-        expect { delete :destroy, params: {id: user_answer.attachments.last }, format: :js }.to change(Attachment, :count).by(-1)
+        user_answer.attachments.create(file: file)
+        expect { delete :destroy, params: { id: user_answer.attachments.last }, format: :js }.to change(Attachment, :count).by(-1)
       end
 
       it 'deletes attachment from question'do
-        expect { delete :destroy, params: {id: user_question.attachments.last }, format: :js }.to change(Attachment, :count).by(-1)
+        user_question.attachments.create(file: file)
+        expect { delete :destroy, params: { id: user_question.attachments.last }, format: :js }.to change(Attachment, :count).by(-1)
       end
     end
 
     context 'Non-author deletes attachment' do
-      it 'deletes attachment from answer' do
+      it 'tries to delete attachment from answer' do
+        answer.attachments.create(file: file)
         expect { delete :destroy, params: { id: answer.attachments.last }, format: :js }.to_not change(Attachment, :count)
       end
 
-      it 'deletes attachment from question' do
-        expect { delete :destroy, params: {  id: question.attachments.last }, format: :js }.to_not change(Attachment, :count)
+      it 'tries to delete attachment from question' do
+        question.attachments.create(file: file)
+        expect { delete :destroy, params: { id: question.attachments.last }, format: :js }.to_not change(Attachment, :count)
       end
     end
 

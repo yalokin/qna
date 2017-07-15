@@ -11,16 +11,23 @@ feature 'Delete files from answer', %q{
   given(:question) { create(:question) }
   given(:answer) { create(:answer, question: question, user: user) }
 
-  before do
+  scenario 'Author deletes file', js: true do
     sign_in(user)
     answer.attachments.create(file: file)
     visit question_path(question)
-  end
 
-  scenario 'Author deletes file', js: true do
     within '.answers' do
       click_on 'Delete file'
       expect(page).to have_no_link 'spec_helper.rb'
+    end
+  end
+
+  scenario 'Non-author try to delete file', js: true do
+    answer.attachments.create(file: file)
+    visit question_path(question)
+
+    within '.answers' do
+      expect(page).to have_no_link 'Delete file'
     end
   end
 end
