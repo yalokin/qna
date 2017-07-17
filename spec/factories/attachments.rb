@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :attachment do
-    file { File.new("#{Rails.root}/spec/spec_helper.rb") }
+    file { fixture_file_upload(Rails.root.join('spec', 'attachments', 'test.png'), 'image/png') }
   end
 end

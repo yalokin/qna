@@ -7,13 +7,12 @@ feature 'Delete files from answer', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:file) { File.open("#{Rails.root}/spec/spec_helper.rb") }
   given(:question) { create(:question) }
   given(:answer) { create(:answer, question: question, user: user) }
+  given!(:attachment) { create(:attachment, attachable: answer ) }
 
   scenario 'Author deletes file', js: true do
     sign_in(user)
-    answer.attachments.create(file: file)
     visit question_path(question)
 
     within '.answers' do
@@ -23,7 +22,6 @@ feature 'Delete files from answer', %q{
   end
 
   scenario 'Non-author try to delete file', js: true do
-    answer.attachments.create(file: file)
     visit question_path(question)
 
     within '.answers' do
