@@ -10,7 +10,7 @@ feature 'Vote for answer', %q{
   given(:question) { create :question }
   given!(:answer) { create :answer, user: author, question: question }
 
-  scenario 'User vote up for answer', js: true do
+  scenario 'autheticated user tries to vote up for answer', js: true do
     sign_in(user)
     visit question_path(question)
 
@@ -18,9 +18,30 @@ feature 'Vote for answer', %q{
       click_on 'Vote up'
     end
 
-    save_and_open_page
     within '.vote' do
       expect(page).to have_content '1'
+    end
+  end
+
+  scenario 'autheticated user tries to vote down for answer', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    within '.answers' do
+      click_on 'Vote down'
+    end
+
+    within '.vote' do
+      expect(page).to have_content '-1'
+    end
+  end
+
+  scenario 'unauthenticated user tries to vote for answer', js: true do
+    visit question_path(question)
+
+    within '.answers' do
+      expect(page).to have_no_link 'Vote up'
+      expect(page).to have_no_link 'Vote down'
     end
   end
 end
