@@ -7,6 +7,7 @@ class Answer < ApplicationRecord
   scope :ordered, -> { order(best: :desc) }
 
   include Attachable
+  include Votable
 
   def best!
     prev_best = question.answers.where(best: true).first

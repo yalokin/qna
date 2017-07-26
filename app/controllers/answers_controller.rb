@@ -1,6 +1,9 @@
 class AnswersController < ApplicationController
+  include Voted
+
   before_action :authenticate_user!
   before_action :set_answer, only: [:destroy, :update, :best]
+
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
