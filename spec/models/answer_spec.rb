@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'concerns/votable_spec.rb'
 
 RSpec.describe Answer, type: :model do
   it { should belong_to :question }
@@ -9,6 +10,8 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of :body }
 
   it { should accept_nested_attributes_for :attachments }
+
+  it_behaves_like 'votable'
 
   let(:question) { create :question }
   let!(:answer) { create :best_answer, question: question }
@@ -33,4 +36,5 @@ RSpec.describe Answer, type: :model do
       end
     end
   end
+
 end
