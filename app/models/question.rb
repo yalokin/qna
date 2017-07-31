@@ -5,4 +5,5 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
 
   include Attachable
+  include Votable
 end

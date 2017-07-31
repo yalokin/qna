@@ -2,6 +2,10 @@ h1 = question.title
 p = question.body
 = render 'common/attachments', resource: question
 
+div class='question-rating' id="question-rating-#{question.id}"
+  = question.rating
+= render 'common/vote', resource: question
+
 - if current_user&.author_of?(question)
   = link_to 'Delete question ', question_path, method: :delete
   = link_to 'Edit question', '', class: 'edit-question-link', data: { question_id: question.id }
