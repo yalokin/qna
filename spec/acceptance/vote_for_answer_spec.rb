@@ -44,4 +44,13 @@ feature 'Vote for answer', %q{
       expect(page).to have_no_link 'Vote down'
     end
   end
+
+  scenario 'author tries to vote for his answer' do
+    sign_in(answer.user)
+    visit question_path(question)
+    within '.answers' do
+      expect(page).to have_no_link 'Vote up'
+      expect(page).to have_no_link 'Vote down'
+    end
+  end
 end

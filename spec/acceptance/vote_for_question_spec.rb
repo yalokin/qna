@@ -8,6 +8,7 @@ feature 'Vote for question', %q{
 
   given(:user) { create :user }
   given(:question) { create :question }
+  given(:author_question) { create(:question, user: user) }
 
   scenario 'autheticated user tries to vote up for question', js: true do
     sign_in(user)
@@ -38,6 +39,15 @@ feature 'Vote for question', %q{
   scenario 'unauthenticated user tries to vote for question', js: true do
     visit question_path(question)
 
+    within '.question' do
+      expect(page).to have_no_link 'Vote up'
+      expect(page).to have_no_link 'Vote down'
+    end
+  end
+
+  scenario 'author tries to vote for his question' do
+    sign_in(user)
+    visit question_path(author_question)
     within '.question' do
       expect(page).to have_no_link 'Vote up'
       expect(page).to have_no_link 'Vote down'
