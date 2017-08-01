@@ -10,14 +10,18 @@ shared_examples_for 'votable' do
       let(:votable) { create(resource) }
 
       it 'set vote up to resource' do
-        expect { patch :vote_up, params: { id: votable, vote: :vote_up },
-          format: :json }.to change(Vote, :count).by(1)
+        expect { patch :vote_up, params: { id: votable }, format: :json }.to change(Vote, :count).by(1)
       end
 
       it 'increment rating' do
-        patch :vote_up, params: {id: votable, vote: :vote}, format: :json
+        patch :vote_up, params: { id: votable}, format: :json
         votable.reload
         expect(votable.rating).to eq 1
+      end
+
+      it 'tries vote up twice' do
+        patch :vote_up, params: { id: votable }, format: :json
+        expect { patch :vote_up, params: { id: votable }, format: :json }.to_not change(Vote, :count)
       end
     end
 
@@ -26,8 +30,7 @@ shared_examples_for 'votable' do
       let(:votable) { create(resource) }
 
       it 'set vote up to resource' do
-        expect { patch :vote_up, params: { id: votable, vote: :vote_up },
-                       format: :json }.to_not change(Vote, :count)
+        expect { patch :vote_up, params: { id: votable }, format: :json }.to_not change(Vote, :count)
       end
     end
   end
@@ -40,14 +43,18 @@ shared_examples_for 'votable' do
       let(:votable) { create(resource) }
 
       it 'set vote down to resource' do
-        expect { patch :vote_down, params: { id: votable, vote: :vote_up },
-                       format: :json }.to change(Vote, :count).by(1)
+        expect { patch :vote_down, params: { id: votable }, format: :json }.to change(Vote, :count).by(1)
       end
 
       it 'decrement rating' do
-        patch :vote_down, params: {id: votable, vote: :vote}, format: :json
+        patch :vote_down, params: {id: votable }, format: :json
         votable.reload
         expect(votable.rating).to eq -1
+      end
+
+      it 'tries vote down twice' do
+        patch :vote_down, params: { id: votable }, format: :json
+        expect { patch :vote_down, params: { id: votable }, format: :json }.to_not change(Vote, :count)
       end
     end
 
@@ -56,8 +63,7 @@ shared_examples_for 'votable' do
       let(:votable) { create(resource) }
 
       it 'set vote up to resource' do
-        expect { patch :vote_up, params: { id: votable, vote: :vote_up },
-                       format: :json }.to_not change(Vote, :count)
+        expect { patch :vote_up, params: { id: votable }, format: :json }.to_not change(Vote, :count)
       end
     end
   end

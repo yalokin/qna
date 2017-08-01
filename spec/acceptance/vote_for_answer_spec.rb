@@ -53,4 +53,18 @@ feature 'Vote for answer', %q{
       expect(page).to have_no_link 'Vote down'
     end
   end
+
+  scenario 'auth user tries to vote for answer more than once', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    within '.answers' do
+      click_on 'Vote up'
+      click_on 'Vote up'
+    end
+
+    within '.vote' do
+      expect(page).to have_content '1'
+    end
+  end
 end

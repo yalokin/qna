@@ -6,6 +6,8 @@ module Votable
   end
 
   def vote(user, direction)
+    return if voted?(user)
+
     if direction == 'up'
       transaction do
         votes.create!(user: user, value: 1)
@@ -17,5 +19,11 @@ module Votable
         decrement!(:rating, 1)
       end
     end
+  end
+
+  private
+
+  def voted?(user)
+    user.votes.exists?(votable: self)
   end
 end
