@@ -8,18 +8,10 @@ module Votable
   def vote(user, direction)
     return if voted?(user)
 
-    if direction == 'up'
-      transaction do
-        votes.create!(user: user, value: 1)
-        increment!(:rating, 1)
-        reload
-      end
-    else
-      transaction do
-        votes.create!(user: user, value: -1)
-        decrement!(:rating, 1)
-        reload
-      end
+    transaction do
+      votes.create!(user: user, value: direction)
+      increment!(:rating, direction)
+      reload
     end
   end
 
@@ -27,7 +19,7 @@ module Votable
     if voted?(user)
       transaction do
         if vote_for(user).value == 1
-          decrement!(:rating, 1)
+          increment!(:rating, -1)
         else
           increment!(:rating, 1)
         end

@@ -6,11 +6,11 @@ module Voted
   end
 
   def vote_up
-    vote('up')
+    vote(+1)
   end
 
   def vote_down
-    vote('down')
+    vote(-1)
   end
 
   def cancel_vote
