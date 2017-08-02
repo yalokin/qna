@@ -67,4 +67,16 @@ shared_examples_for 'votable' do
       end
     end
   end
+
+  describe 'PATCH #cancel_vote' do
+    sign_in_user
+    let(:resource) { controller.controller_name.singularize.to_sym }
+    let(:votable) { create(resource) }
+
+    it 'delete vote from resource' do
+      patch :vote_down, params: { id: votable }, format: :json
+      patch :cancel_vote, params: { id: votable }, format: :json
+      expect { patch :cancel_vote, params: { id: votable}, format: :json }.to_not change(Vote, :count)
+    end
+  end
 end

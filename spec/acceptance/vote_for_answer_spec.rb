@@ -67,4 +67,15 @@ feature 'Vote for answer', %q{
       expect(page).to have_content '1'
     end
   end
+
+  scenario 'User can cancel vote', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    within '.answers' do
+      click_on 'Vote up'
+      click_on 'Cancel vote'
+      expect(page).to have_content '0'
+    end
+  end
 end

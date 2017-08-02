@@ -2,7 +2,7 @@ module Voted
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_votable, only: [:vote_up, :vote_down]
+    before_action :set_votable, only: [:vote_up, :vote_down, :cancel_vote]
   end
 
   def vote_up
@@ -11,6 +11,11 @@ module Voted
 
   def vote_down
     vote('down')
+  end
+
+  def cancel_vote
+    @votable.cancel_vote(current_user)
+    success_respond
   end
 
   private
