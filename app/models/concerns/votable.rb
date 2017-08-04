@@ -5,32 +5,41 @@ module Votable
     has_many :votes, as: :votable
   end
 
-  def vote(user, direction)
+  def vote(user, value)
     return if voted?(user)
 
-    transaction do
-      votes.create!(user: user, value: direction)
-      increment!(:rating, direction)
-      reload
+    if value == 1
+      transaction do
+        votes.create!(user: user, value: value)
+        self.class.increment_counter(:rating, self)
+        reload
+      end
+    elsif value == -1
+      transaction do
+        votes.create!(user: user, value: value)
+        self.class.decrement_counter(:rating, self)
+        reload
+      end
     end
+
   end
 
   def cancel_vote(user)
-    if voted?(user)
-      transaction do
-        if vote_for(user).value == 1
-          increment!(:rating, -1)
-        else
-          increment!(:rating, 1)
-        end
-        reload
-        vote_for(user).destroy
+    return unless voted?(user)
+
+    transaction do
+      if vote_by(user).value == 1
+        self.class.decrement_counter(:rating, self)
+      else
+        self.class.increment_counter(:rating, self)
       end
+      reload
+      vote_by(user).destroy
     end
   end
 
-  def vote_for(user)
-    votes.where(user: user).first if user
+  def vote_by(user)
+    votes.find_by(user: user)
   end
 
   private

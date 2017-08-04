@@ -42,6 +42,7 @@ feature 'Vote for answer', %q{
     within '.answers' do
       expect(page).to have_no_link 'Vote up'
       expect(page).to have_no_link 'Vote down'
+      expect(page).to have_no_link 'Cancel vote'
     end
   end
 

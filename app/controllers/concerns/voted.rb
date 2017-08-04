@@ -28,8 +28,8 @@ module Voted
     @votable = model_klass.find(params[:id])
   end
 
-  def vote(direction)
-    if @votable.vote(current_user, direction)
+  def vote(value)
+    if @votable.vote(current_user, value)
       success_respond
     else
       error_respond('Something went wrong')

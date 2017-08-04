@@ -1,10 +1,10 @@
 require 'rails_helper'
-require_relative 'concerns/votable_spec.rb'
+require_relative 'concerns/voted_spec.rb'
 
 RSpec.describe AnswersController, type: :controller do
   let!(:question) { create :question }
 
-  it_behaves_like 'votable'
+  it_behaves_like 'voted'
 
   describe 'POST #create' do
     sign_in_user
