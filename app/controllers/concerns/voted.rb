@@ -6,7 +6,7 @@ module Voted
   end
 
   def vote_up
-    vote(+1)
+    vote(1)
   end
 
   def vote_down

@@ -8,18 +8,14 @@ module Votable
   def vote(user, value)
     return if voted?(user)
 
-    if value == 1
-      transaction do
-        votes.create!(user: user, value: value)
+    transaction do
+      votes.create!(user: user, value: value)
+      if value == 1
         self.class.increment_counter(:rating, self)
-        reload
-      end
-    elsif value == -1
-      transaction do
-        votes.create!(user: user, value: value)
+      else
         self.class.decrement_counter(:rating, self)
-        reload
       end
+      reload
     end
 
   end
@@ -33,7 +29,6 @@ module Votable
       else
         self.class.increment_counter(:rating, self)
       end
-      reload
       vote_by(user).destroy
     end
   end
