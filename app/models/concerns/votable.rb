@@ -30,6 +30,7 @@ module Votable
         self.class.increment_counter(:rating, self)
       end
       vote_by(user).destroy
+      reload
     end
   end
 

@@ -1,4 +1,4 @@
 $ ->
   $(".vote-link").bind "ajax:success", (e) ->
     obj = e.detail[0]
-    $('#' + obj.controller + '-rating-'  + obj.id).html(obj.content)
+    $('#' + obj.votable_type + '-rating-'  + obj.id).html(obj.content)

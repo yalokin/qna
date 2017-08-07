@@ -17,18 +17,6 @@ RSpec.shared_examples 'votable' do
     end
   end
 
-  describe '#vote(user, -1)' do
-    it 'should set vote -1 to votable' do
-      votable.vote(user, -1)
-      expect(votable.vote_by(user).value).to eq -1
-    end
-
-    it 'should decrement votable rating' do
-      votable.vote(user, -1)
-      expect(votable.rating).to eq -1
-    end
-  end
-
   describe '#cancel_vote' do
     it 'should clear users vote' do
       votable.vote(user, 1)

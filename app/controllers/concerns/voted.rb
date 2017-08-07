@@ -6,11 +6,11 @@ module Voted
   end
 
   def vote_up
-    vote(1)
+    vote +1
   end
 
   def vote_down
-    vote(-1)
+    vote -1
   end
 
   def cancel_vote
@@ -41,7 +41,7 @@ module Voted
   end
 
   def json_respond(content, status = 200)
-    render json: { id: @votable.id, content: content, controller: controller_name.singularize }, status: status
+    render json: { id: @votable.id, content: content, votable_type: @votable.class.name.downcase }, status: status
   end
 
   def error_respond(message)

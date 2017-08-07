@@ -75,6 +75,7 @@ feature 'Vote for answer', %q{
 
     within '.answers' do
       click_on 'Vote up'
+      sleep 1
       click_on 'Cancel vote'
       expect(page).to have_content '0'
     end
