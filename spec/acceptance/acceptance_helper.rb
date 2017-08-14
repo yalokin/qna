@@ -5,6 +5,8 @@ RSpec.configure do |config|
 
   Capybara.default_max_wait_time = 5
 
+  Capybara.server = :puma
+
   config.include AcceptanceMacros, type: :feature
 
   config.use_transactional_fixtures = false

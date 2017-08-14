@@ -15,7 +15,10 @@ module Qna
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    #конфигурация генератора тестов контроллеров
+    # выключает возможность принимать соединения с любых хостов
+    config.action_cable.disable_request_forgery_protection = false
+
+    # конфигурация генератора тестов контроллеров
     config.generators do |g|
       g.test_framework :rspec,
                        fixtures: true,
