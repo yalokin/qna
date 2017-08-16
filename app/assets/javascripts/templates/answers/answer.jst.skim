@@ -1,0 +1,18 @@
+div id="answer-#{@answer.id}"
+  p = @answer.body
+  - if @attachments.length > 0
+    p Attachments:
+    ul
+      - for attachment in @attachments
+        li id = "attachment-#{attachment.id}"
+          - url = attachment.file.url
+          a href="#{url}" #{url.substring(url.lastIndexOf('/')+1)}
+
+  div class='vote' id="answer-rating-#{@answer.id}"
+    | rating: #{@answer.rating}
+
+  - if @user
+    a.vote-link href="/answers/#{@answer.id}/vote_up" rel="nofollow" data-remote="true" data-method="patch" Vote up&nbsp
+    a.vote-link href="/answers/#{@answer.id}/vote_down" rel="nofollow" data-remote="true" data-method="patch" Vote down&nbsp
+    a.vote-link href="/answers/#{@answer.id}/cancel_vote" rel="nofollow" data-remote="true" data-method="patch" Cancel vote&nbsp
+

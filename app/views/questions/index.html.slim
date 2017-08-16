@@ -1,6 +1,6 @@
 h1 Questions
-ul
+ul class='questions-list'
   - @questions.each do |question|
-    li = link_to question.title, question_path(question)
+    = render 'question_title', question: question
 
 p = link_to 'Ask', new_question_path
